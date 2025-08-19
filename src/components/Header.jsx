@@ -3,6 +3,7 @@
 // components/Header.js
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext'; // Import CartContext
+import Link from 'next/link';
 
 const Header = () => {
   const { cartItems } = useContext(CartContext); // Get cartItems from context
@@ -19,28 +20,28 @@ const Header = () => {
       <nav>
         <ul className="flex space-x-6 items-center">
           <li>
-            <a
+            <Link
               href="/"
               className="text-gray-700 hover:text-blue-600 font-medium"
             >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/products/1"
               className="text-gray-700 hover:text-blue-600 font-medium"
             >
               Product 1
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/products/2"
               className="text-gray-700 hover:text-blue-600 font-medium"
             >
               Product 2
-            </a>
+            </Link>
           </li>
           <li className="relative">
             {/* Cart Icon - Displays static '0' items. Candidate needs to make this dynamic. */}

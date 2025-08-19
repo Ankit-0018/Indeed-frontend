@@ -1,5 +1,4 @@
 import { products } from '@/data/products';
-import Header from '../components/Header';
 import { CartProvider } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
 
@@ -7,7 +6,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <CartProvider>
       <div className="min-h-screen flex flex-col">
-        <Header />
         <main className="flex-grow container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6">Welcome to MyStore</h1>
 

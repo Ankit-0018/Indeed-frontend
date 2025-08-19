@@ -1,26 +1,42 @@
-'use client';
+"use client";
 
 import { useState, useContext, useEffect } from 'react';
 import ProductDetails from '@/components/ProductDetails';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import { CartContext } from '@/context/CartContext';
+import useSWR from "swr";
+import { fetchProductById } from '@/data/products';
 
-export default function ProductDetailsWrapper({ product }) {
+export default function ProductDetailsWrapper({ productId }) {
   const { addToCart } = useContext(CartContext);
 
-  // fix/BUG 1: No default color selected
-  const [selectedColor, setSelectedColor] = useState(product.variants[0]?.color || '');
+  const fetcher = async (id) => {
+  console.log("Fetching product from API:", id);
+  return fetchProductById(id);
+};
+  const { data: product, error } = useSWR(productId, fetcher, {
+    dedupingInterval: 5 * 60 * 1000, // 5 min cache
+  });
+
+  const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
 
-  //fix/BUG 2: Always shows first variant's sizes regardless of selected color
-  const availableSizesForColor = product.variants.find(variant => variant.color === selectedColor)?.sizes || [];
+  // Set default color when product loads
+  useEffect(() => {
+    if (product) {
+      setSelectedColor(product.variants[0]?.color || '');
+    }
+  }, [product]);
 
-  // BUG 6: Empty dependency array - won't reset when color changes
+  // Reset size whenever color changes
   useEffect(() => {
     setSelectedSize('');
-  }, []);
+  }, [selectedColor]);
 
-  // BUG 5: Only checks size, not color
+  const availableSizesForColor = product?.variants.find(
+    variant => variant.color === selectedColor
+  )?.sizes || [];
+
   const handleAddToCart = () => {
     if (!selectedSize) {
       alert('Please select a size.');
@@ -28,6 +44,9 @@ export default function ProductDetailsWrapper({ product }) {
     }
     addToCart(product, selectedColor, selectedSize);
   };
+
+  if (error) return <div>Failed to load product</div>;
+  if (!product) return <div>Loading...</div>;
 
   return (
     <>

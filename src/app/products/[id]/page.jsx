@@ -4,16 +4,15 @@ import ProductDetailsWrapper from './ProductDetailsWrapper';
 
 export default async function ProductPage({ params }) {
   const { id } = params;
-  const product = await fetchProductById(id);
- 
 
-  if (!product) {
+
+  if (!id) {
     notFound();
   }
 
   return (
     <div className="p-8 bg-white rounded-lg shadow-xl">
-      <ProductDetailsWrapper product={product} />
+      <ProductDetailsWrapper productId={id} />
     </div>
   );
 }

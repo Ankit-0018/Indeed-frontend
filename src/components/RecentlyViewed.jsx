@@ -3,6 +3,7 @@
 // components/RecentlyViewed.js
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const RecentlyViewed = () => {
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
@@ -38,9 +39,11 @@ const uniqueProducts = stored.filter(product => {
             className="block"
           >
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
-              <img
+              <Image
                 src={product.imageUrl}
                 alt={product.name}
+                width={400}                   // approximate width
+                height={192}                  // approximate height
                 className="w-full h-32 object-cover"
               />
               <div className="p-4">

@@ -3,6 +3,8 @@
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
 
 export default function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
@@ -10,10 +12,13 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition">
-      <img
+      <Image
         src={product.imageUrl}
         alt={product.name}
         className="w-full h-48 object-cover"
+        width={400}                   // approximate width
+        height={192}   
+                       // approximate height
       />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{product.name}</h3>

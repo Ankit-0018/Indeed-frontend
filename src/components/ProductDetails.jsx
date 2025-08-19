@@ -1,5 +1,6 @@
 // components/ProductDetails.js
 import React from 'react';
+import Image from 'next/image';
 
 const ProductDetails = ({
   product,
@@ -21,7 +22,7 @@ const ProductDetails = ({
       {/* Product Image */}
       <div className="md:w-1/2 flex justify-center items-center bg-gray-100 rounded-lg overflow-hidden shadow-md">
         {/* BUG 4: Non-optimized image with missing alt text */}
-        <img src={product.imageUrl} alt="" className="w-full h-auto" />
+        <Image src={product.imageUrl} alt="" className="w-full h-auto" width={400} height={192} />
       </div>
 
       {/* Product Info */}
