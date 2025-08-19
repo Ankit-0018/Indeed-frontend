@@ -5,6 +5,7 @@ import ProductDetailsWrapper from './ProductDetailsWrapper';
 export default async function ProductPage({ params }) {
   const { id } = params;
   const product = await fetchProductById(id);
+ 
 
   if (!product) {
     notFound();

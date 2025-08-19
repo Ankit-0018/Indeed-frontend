@@ -55,6 +55,7 @@ export const fetchProductById = async (id) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const product = products.find((p) => p.id === id);
+      console.log("product fetched on server" , product)
       resolve(product);
     }, 500); // Simulate network delay
   });

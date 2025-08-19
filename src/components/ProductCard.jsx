@@ -23,7 +23,11 @@ export default function ProductCard({ product }) {
           {/* View Product */}
           <button
             className="flex-1 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition"
-            onClick={() => router.push(`/products/${product.id}`)}
+            onClick={() => {
+              router.push(`/products/${product.id}`)
+              localStorage.setItem('recentlyViewed', JSON.stringify([product, ...JSON.parse(localStorage.getItem('recentlyViewed') || '[]')]));
+            
+            }}
           >
             View Product
           </button>

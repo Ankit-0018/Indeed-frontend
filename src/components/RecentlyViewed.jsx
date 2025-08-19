@@ -9,9 +9,17 @@ const RecentlyViewed = () => {
 
   useEffect(() => {
     // TODO: Implement logic to load recently viewed products from localStorage or cookies.
+    const stored = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+
     // Ensure only the last 3 unique products are shown.
+    const seen = new Set();
+const uniqueProducts = stored.filter(product => {
+  if (seen.has(product.id)) return false; 
+  seen.add(product.id);                   
+  return true;                            
+});
     // This component is currently a placeholder.
-    const storedProducts = []; // Replace with actual logic to retrieve from storage
+    const storedProducts = uniqueProducts.slice(-3);
     setRecentlyViewedProducts(storedProducts);
   }, []);
 
